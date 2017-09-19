@@ -28,8 +28,8 @@ def generate_puzzle(length, guess_score_limit=3, zero_correct_limit=1):
             unique_solution = True
     return puzz
 
-puzz_length_8 = generate_puzzle(8)
+new_puzz = generate_puzzle(20)
 
-print(puzz_length_8.guesses)
-print(puzz_length_8.scores)
-print(puzz_length_8.solution)
+print(new_puzz.guesses)
+print(new_puzz.scores)
+print(new_puzz.solution)
