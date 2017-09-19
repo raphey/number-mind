@@ -149,7 +149,7 @@ def repeated_greedy_search(puzzle: NumberMindPuzzle, max_tries=100000, use_bayes
 def mimic_greedy_search(puzzle: NumberMindPuzzle, max_tries=100000, pop_size=10000, cutoff_proportion=0.6,
                         generations=50, lex_dist=1, persist=False, verbose=False):
     """
-    Repeated hill-descending search with samples taken from a trained Mimic distribution. After training the
+    Repeated hill-descending search with samples taken from a trained MIMIC distribution. After training the
     distribution, for up to max_tries attempts, starts at a randomly generated point and changes digits according to
     whatever change will result in the greatest decrease in cost. If persist is true, search continues after finding a
     solution.
@@ -580,9 +580,9 @@ if __name__ == '__main__':
     # repeated_greedy_search(puzz, use_bayes=True)
     # simulated_annealing(puzz, use_bayes=True)
     # genetic_algorithm(puzz, use_bayes=True)
-    backtracking_guess_search(puzz, use_bayes=True, p_cutoff_factor=0.60)
+    # backtracking_guess_search(puzz, use_bayes=True, p_cutoff_factor=0.50)
     # heap_digit_search(puzz, use_bayes=True, fixed_start=True)
-    # mimic_greedy_search(puzz)
+    mimic_greedy_search(puzz, verbose=True, pop_size=100000, cutoff_proportion=0.4, generations=50, max_tries=1000000)
 
     # This is much slower than the previous algorithms
     if puzz.length < 12:
@@ -593,3 +593,5 @@ if __name__ == '__main__':
         constraint_solver(puzz)
 
     stop_timer()
+
+# Guess crawl with 0.5 cutoff solves n=20 case in 30 minutes.
