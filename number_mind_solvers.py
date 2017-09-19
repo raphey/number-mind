@@ -438,7 +438,7 @@ def backtracking_digit_search(puzzle: NumberMindPuzzle, use_bayes=False, p_cutof
     zeros, and then incrementing the last digit, except that it backtracks once it determines that a current partial
     assignment will cause a problem with the needed score for a pre-made guess--either too many correct digits, or
     not enough digits remaining to get up to the needed number.
-    :param puzzle: A number-mind-bad puzzle
+    :param puzzle: A number-mind puzzle
     :param use_bayes: Use Bayesian probabilities to check digits in order from most to least likely and also assign
     digits with the most likely candidates assigned first, to end the search sooner.
     :param p_cutoff_factor: Only has an effect with use_bayes set to True. With path cost defined as the sum of -log(p)
@@ -555,7 +555,7 @@ def heap_digit_search(puzzle: NumberMindPuzzle, use_bayes=False, fixed_start=Tru
     Rather than compute each cost from scratch, I look up a stored tuple with a 'guess score offset," as described
     in the NumberMindPuzzle class.
 
-    :param puzzle: A number-mind-bad puzzle
+    :param puzzle: A number-mind puzzle
     :param use_bayes: Use Bayesian probabilities to determine the initial state.
     :param fixed_start: Determines if the starting state is fixed or randomly determined. With use_bayes set to True,
     fixed starting state is the argmax for each digit. With use_bayes set to False, fixed starting state is all zeros.

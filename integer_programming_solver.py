@@ -9,8 +9,8 @@ from number_mind import NumberMindPuzzle
 
 def integer_programming_solver(puzzle: NumberMindPuzzle, persist=False, max_sol_count=2, verbose=True):
     """
-    Solves a number-mind-bad puzzle using mixed-integer programming from Google's OR tools.
-    :param puzzle: A number-mind-bad puzzle object
+    Solves a number-mind puzzle using mixed-integer programming from Google's OR tools.
+    :param puzzle: A number-mind puzzle object
     :param persist: Whether the solver should continue finding additional solutions after finding one
     :param max_sol_count: The maximum number of solutions to find before stopping. 2 is a useful default, because it
     determines puzzle uniqueness

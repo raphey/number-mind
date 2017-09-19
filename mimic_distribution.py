@@ -7,14 +7,14 @@ from number_mind import NumberMindPuzzle, weighted_choice
 
 class MimicDistribution(object):
     """
-    Mimic distribution object designed to create random samples in the number-mind-bad puzzle space that have low cost.
+    Mimic distribution object designed to create random samples in the number-mind puzzle space that have low cost.
     This is based on work by De Bonet, Isbell, and Viola.
     Once the distribution has been initialized and trained with the self.train() method, samples can be generated using
     self.bivariate_sample().
     """
     def __init__(self, puzz: NumberMindPuzzle, pop_size=10000):
         """
-        Constructor for a Mimic distribution object. Should be passed a number-mind-bad puzzle and a population size which
+        Constructor for a Mimic distribution object. Should be passed a number-mind puzzle and a population size which
         represents how many new samples will be generated with each successive generation of training.
         """
         self._puzzle = puzz
