@@ -1,7 +1,9 @@
 ## Solving a Number Mind puzzle ten different ways
 
 ### Overview
-This is a collection of algorithms I wrote to solve “Number Mind” puzzles, as introduced in [Project Euler problem 185](https://projecteuler.net/problem=185). I wrote these because this problem seemed to have a particularly diverse set of available approaches, and I thought it would be fun to play with some new algorithms and optimizations. Of course if you want to solve the problem yourself, you should do that before continuing,<sup>1</sup> and if you have another method or improvement to suggest, I’d love to hear about it. Thanks very much to Chris Gearheart for helping with these algorithms and telling me about MIMIC.
+This is a collection of algorithms I wrote to solve “Number Mind” puzzles, a variation of the game [MasterMind](https://en.wikipedia.org/wiki/Mastermind_(board_game)) described in [Project Euler problem 185](https://projecteuler.net/problem=185). The basic idea is to deduce an unknown string of digits from clues in the form of a series of pre-made “guesses” along with the number of correct digits in the guesses. 
+
+I wrote these because this problem seemed to have a particularly diverse set of available approaches, and I thought it would be fun to play with some new algorithms and optimizations. Of course if you want to solve the problem yourself, you should do that before continuing,<sup>1</sup> and if you have another method or improvement to suggest, I’d love to hear about it. Thanks very much to Chris Gearheart for helping with these algorithms and telling me about MIMIC.
 
 ### Algorithms and shorthand names
 I solved the problem using:
