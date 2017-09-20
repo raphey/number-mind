@@ -302,8 +302,7 @@ def genetic_algorithm(puzzle: NumberMindPuzzle, population_size=1000, civilizati
                 # Make a child and add it to population along with its cost
                 child = ga_child(parent1, parent2)
                 pop_and_cost.append((child, puzzle.cost(child)))
-        if verbose:
-            print()
+
     print("Genetic algorithm failed to find solution after {} civilizations of {} generations.".format(
         civilizations, generations))
 
