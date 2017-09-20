@@ -5,6 +5,7 @@ __author__ = 'raphey'
 
 from ortools.linear_solver import pywraplp
 from number_mind import NumberMindPuzzle
+from util import start_timer, stop_timer
 
 
 def integer_programming_solver(puzzle: NumberMindPuzzle, persist=False, max_sol_count=2, verbose=True):
@@ -83,5 +84,23 @@ def integer_programming_solver(puzzle: NumberMindPuzzle, persist=False, max_sol_
 
 
 if __name__ == '__main__':
-    from number_mind_specific_puzzles import standard_puzzle
+
+    # Solve some problems, including a couple big ones.
+
+    from number_mind_specific_puzzles import *
+
+    start_timer()
     integer_programming_solver(standard_puzzle)
+    stop_timer()
+
+    start_timer()
+    integer_programming_solver(generated_puzzle_length16_1)
+    stop_timer()
+
+    start_timer()
+    integer_programming_solver(hard_puzzle_1)
+    stop_timer()
+
+    start_timer()
+    integer_programming_solver(generated_puzzle_length20)
+    stop_timer()
