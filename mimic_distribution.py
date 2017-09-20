@@ -64,7 +64,12 @@ class MimicDistribution(object):
             med = self._pop_and_cost[self.pop_size // 2][1]
             high = self._pop_and_cost[-1][1]
             print("Initial pop. \t Lowest, median, highest costs: {:2d} {:2d} {:2d}".format(low, med, high))
-            print("\t\t\t\t Total univariate entropy: {:0.2f}".format(sum(self.uni_ent)))
+
+            total_bayes_ent = sum(self._puzzle.entropy)
+            total_uniform_ent = -self._n * log(0.1)
+
+            print("\t\t\t\t Total univariate entropy: {:0.2f} (compared to {:0.2f} for Bayesian dist. and "
+                  "{:0.2f} for uniform dist.)".format(sum(self.uni_ent), total_bayes_ent, total_uniform_ent))
 
         for g in range(generations):
 
@@ -82,13 +87,13 @@ class MimicDistribution(object):
             med = self._pop_and_cost[int(self.pop_size / 2)][1]
             high = self._pop_and_cost[-1][1]
             self._cutoff_cost = self._pop_and_cost[int(self.pop_size * self.cutoff_proportion)][1]
-            if verbose:
+            if verbose and g % 10 == 0:
                 print("Generation {} \t Lowest, median, highest costs: {:2d} {:2d} {:2d}".format(g, low, med, high))
                 print("\t\t\t\t Total univariate entropy: {:0.2f}".format(sum(self.uni_ent)))
         if verbose:
             print("Mimic training complete.")
-            print("Final univariate entropy: {:0.2f} (compared to {:0.2f} for Bayesian distribution, and {:0.2f} for "
-                  "uniform distribution)".format(sum(self.uni_ent), sum(self._puzzle.entropy), -self._n * log(0.1)))
+            print("Final univariate entropy: {:0.2f} (compared to {:0.2f} for Bayesian dist. and {:0.2f} for "
+                  "uniform dist.)".format(sum(self.uni_ent), total_bayes_ent, total_uniform_ent))
 
     def univariate_sample(self, eps=0.01):
         """
