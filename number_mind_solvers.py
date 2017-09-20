@@ -8,7 +8,7 @@ from math import exp
 from random import random, randint
 from itertools import combinations
 import constraint
-from heapq import heappush, heappop
+# from heapq import heappush, heappop
 
 
 def prod(l):
@@ -33,12 +33,12 @@ def common_string(str_a, str_b):
 def simulated_annealing(puzzle: NumberMindPuzzle, temp0=0.5, temp_low=0.1, alpha=1.0 - 10**-7,
                         initial_state=None, use_bayes=True, verbose=False):
     """
-    Simulated annealing algorithm for solving a number-mind-bad puzzle. Starts with a random state, possibly according to a
+    Simulated annealing algorithm for solving a number-mind puzzle. Starts with a random state, possibly according to a
     Bayesian probability distribution, and considers a series of random, one-digit changes, also possibly influenced by
     Bayes. Always keeps changes that reduce cost, and sometimes still keeps changes that increase cost, with more and
     more reluctance (temperature lowering) after each iteration.
 
-    :param puzzle: A number-mind-bad puzzle
+    :param puzzle: A number-mind puzzle
     :param temp0: The initial temperature, i.e. willingness to increase cost. Scaled by default to be close to costs.
     :param temp_low: The temp where algorithm gives up--set so as to stop the search at a local minimum
     :param alpha: The factor 1 - eps by which temperature decreases with each iteration
@@ -63,6 +63,9 @@ def simulated_annealing(puzzle: NumberMindPuzzle, temp0=0.5, temp_low=0.1, alpha
         puzzle.initialize_to_random(use_bayes)
     else:
         puzzle.initialize_to_fixed(initial_state)
+
+    if verbose:
+        print("Solving puzzle with simulated annealing...")
 
     temp = temp0
 
@@ -93,12 +96,13 @@ def simulated_annealing(puzzle: NumberMindPuzzle, temp0=0.5, temp_low=0.1, alpha
 
 def single_greedy_search(puzzle: NumberMindPuzzle, use_bayes=False, initial_state=None, lex_dist=1):
     """
-    Hill-descending search to be used with a number-mind-bad puzzle. Starts at a pre-specified or random point, possibly
+    Hill-descending search to be used with a number-mind puzzle. Starts at a pre-specified or random point, possibly
     according to a Bayesian probability distribution, and changes digits according to whatever change will result in
     the greatest decrease in cost. With the variable lexical_distance set above 1, the state checks the results of
     multiple digit changes.
     Returns the solution string if one is found, or ''. Also returns the starting state as a string.
     """
+
     if initial_state is None:
         puzzle.initialize_to_random(use_bayes)
     else:
@@ -114,6 +118,7 @@ def single_greedy_search(puzzle: NumberMindPuzzle, use_bayes=False, initial_stat
 
         if new_cost == 0:
             return new_state, start_state
+
     return None, start_state
 
 
@@ -124,6 +129,9 @@ def repeated_greedy_search(puzzle: NumberMindPuzzle, max_tries=100000, use_bayes
     Bayesian probability distribution, and changes digits according to whatever change will result in the greatest
     decrease in cost. If persist is true, the search continues after finding solution.
     """
+    if verbose:
+        print("Solving puzzle with repeated greedy search...")
+
     counter = 0
     for i in range(max_tries):
         sol, start = single_greedy_search(puzzle, use_bayes, None, lex_dist)
@@ -155,6 +163,8 @@ def mimic_greedy_search(puzzle: NumberMindPuzzle, max_tries=100000, pop_size=100
     solution.
     """
 
+    if verbose:
+        print("Solving puzzle with MIMIC algorithm and repeated greedy search...")
     mimic_dist = MimicDistribution(puzz=puzzle, pop_size=pop_size)
     mimic_dist.train(cutoff_proportion=cutoff_proportion, generations=generations, verbose=verbose)
     counter = 0
@@ -181,8 +191,8 @@ def mimic_greedy_search(puzzle: NumberMindPuzzle, max_tries=100000, pop_size=100
 
 def constraint_solver(puzzle: NumberMindPuzzle):
     """
-    Solves a number-mind-bad puzzle using Gustavo Niemeyer's python constraint module. This isn't suitable
-    for solving the length 16 number-mind-bad puzzle, but it can solve the length 5 puzzle.
+    Solves a number-mind puzzle using Gustavo Niemeyer's python constraint module. This isn't suitable
+    for solving the length 16 number-mind puzzle, but it can solve the length 5 puzzle.
     """
 
     def make_constraint_function(guess, score):
@@ -244,10 +254,10 @@ def genetic_algorithm(puzzle: NumberMindPuzzle, population_size=1000, civilizati
             c = c[:a] + b + c[a + 1:]
 
         return c
-
+    if verbose:
+        print("Solving puzzle with genetic algorithm...")
     for civ in range(civilizations):
         if verbose:
-            print()
             print("Civilization {}".format(civ))
         initial_population = [puzzle.random_state(use_bayes) for _ in range(population_size)]
         pop_and_cost = [(p, puzzle.cost(p)) for p in initial_population]
@@ -292,11 +302,13 @@ def genetic_algorithm(puzzle: NumberMindPuzzle, population_size=1000, civilizati
                 # Make a child and add it to population along with its cost
                 child = ga_child(parent1, parent2)
                 pop_and_cost.append((child, puzzle.cost(child)))
+        if verbose:
+            print()
     print("Genetic algorithm failed to find solution after {} civilizations of {} generations.".format(
         civilizations, generations))
 
 
-def backtracking_guess_search(puzzle: NumberMindPuzzle, use_bayes=False, p_cutoff_factor=0.6):
+def backtracking_guess_search(puzzle: NumberMindPuzzle, use_bayes=False, p_cutoff_factor=0.5):
     """
     Guess-wise backtracking search for solving a NumberMindPuzzle.
     The key logic is this: if we know a guess has, for example, two correctly placed digits, we can try picking
@@ -404,7 +416,7 @@ def backtracking_guess_search(puzzle: NumberMindPuzzle, use_bayes=False, p_cutof
             p_cutoff = sum(prob_dicts[i][sel] for sel in gs) / len(gs_list[i]) * p_cutoff_factor
             for j, sel in enumerate(gs):
                 prob = prob_dicts[i][sel]
-                if prob < p_cutoff:
+                if prob < p_cutoff and j > 0:
                     gs_list[i] = gs[:j]
                     break
 
@@ -432,7 +444,7 @@ def backtracking_guess_search(puzzle: NumberMindPuzzle, use_bayes=False, p_cutof
         sol, counter, search_size))
 
 
-def backtracking_digit_search(puzzle: NumberMindPuzzle, use_bayes=False, p_cutoff_factor=0.75, verbose=False):
+def backtracking_digit_search(puzzle: NumberMindPuzzle, use_bayes=False, p_cutoff_factor=1.4, verbose=False):
     """
     Digit-wise backtracking search for solving a NumberMindPuzzle. Essentially, it assigns digits, starting with all
     zeros, and then incrementing the last digit, except that it backtracks once it determines that a current partial
@@ -509,6 +521,9 @@ def backtracking_digit_search(puzzle: NumberMindPuzzle, use_bayes=False, p_cutof
         # Return false; this branch has failed
         return False
 
+    if verbose:
+        print("Solving puzzle with backtracking digit search...")
+
     n = puzzle.length
     ng = puzzle.num_guesses
     int_guesses = [list(map(int, g)) for g in puzzle.guesses]
@@ -553,7 +568,8 @@ def heap_digit_search(puzzle: NumberMindPuzzle, use_bayes=False, fixed_start=Tru
     This is a digit-wise, A* like search in which the lowest cost node is expanded with single-digit variations.
     My main addition to Sandorf's idea is to speed things up by 30-40% by changing how costs are computed.
     Rather than compute each cost from scratch, I look up a stored tuple with a 'guess score offset," as described
-    in the NumberMindPuzzle class.
+    in the NumberMindPuzzle class. This takes advantage of the fact that the costs for one state don't differ much
+    from the costs of a state that is one digit away.
 
     :param puzzle: A number-mind puzzle
     :param use_bayes: Use Bayesian probabilities to determine the initial state.
@@ -561,37 +577,36 @@ def heap_digit_search(puzzle: NumberMindPuzzle, use_bayes=False, fixed_start=Tru
     fixed starting state is the argmax for each digit. With use_bayes set to False, fixed starting state is all zeros.
     :return: None, prints solution.
     """
+
     return
 
 
 # ==================================================================
 
 if __name__ == '__main__':
+    # Solve the standard puzzle a few different ways
+    # This is how sample_output.txt was generated
 
-    # puzz = standard_puzzle
-    # puzz = demo_puzzle
-    # puzz = demo_puzzle_impossible
-    # puzz = hard_puzzle2
-    # puzz = generated_puzzle_length8
-    # puzz = generated_puzzle_length12
-    puzz = generated_puzzle_length20
+    puzz = standard_puzzle  # Other options are in number_mind_specific_puzzles.py
+
     start_timer()
-
-    # repeated_greedy_search(puzz, use_bayes=True)
-    # simulated_annealing(puzz, use_bayes=True)
-    # genetic_algorithm(puzz, use_bayes=True)
-    # backtracking_guess_search(puzz, use_bayes=True, p_cutoff_factor=0.50)
-    # heap_digit_search(puzz, use_bayes=True, fixed_start=True)
-    mimic_greedy_search(puzz, verbose=True, pop_size=100000, cutoff_proportion=0.4, generations=50, max_tries=1000000)
-
-    # This is much slower than the previous algorithms
-    if puzz.length < 12:
-        backtracking_digit_search(puzz, use_bayes=True)
-
-    # This one is even slower.
-    if puzz.length < 8:
-        constraint_solver(puzz)
-
+    simulated_annealing(puzz, use_bayes=True, verbose=True)
     stop_timer()
 
-# Guess crawl with 0.5 cutoff solves n=20 case in 30 minutes.
+    print()
+
+    start_timer()
+    genetic_algorithm(puzz, verbose=True)
+    stop_timer()
+
+    print()
+
+    start_timer()
+    backtracking_guess_search(puzz, use_bayes=True)
+    stop_timer()
+
+    print()
+
+    start_timer()
+    mimic_greedy_search(puzz, verbose=True)
+    stop_timer()
