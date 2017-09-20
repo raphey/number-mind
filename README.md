@@ -46,6 +46,18 @@ I also ran an exhibition match between BGS w Bayes and MIP, trying a much harder
 RGS w MIMIC deserves honorable mention for nearly beating RGS w Bayes while using far fewer cost evaluations.
 
 For all of these, I used a 2.9 GHz processor, and I’m using PyPy for all algorithms except for the mixed-integer programming, since Google’s OR tools won’t work with PyPy. This probably didn’t impact MIP’s solve time, since nearly all of what it’s doing is in C anyway.
+
+### File descriptions
+
+- [number_mind_solvers.py](number_mind_solvers.py): Collection of solving algorithms
+- [number_mind.py](number_mind.py): The main Number Mind puzzle class
+- [number_mind_specific_puzzles.py](number_mind_specific_puzzles.py): A handful of Number Mind puzzles, including the standard puzzle, an unsolvable one, and some generated longer ones.
+- [sample_output.txt](sample_output.txt): Output from solving the standard puzzle with SA, GA, RGS, and MIMIC. 
+- [mimic_distribution.py](mimic_distribution.py): A class for training a MIMIC distribution. 
+- [integer_programming_solver.py](integer_programming_solver.py): The MIP solver, using Google’s OR tools. 
+- [number_mind_puzzle_generator.py](number_mind_generates.py): Generates new Number Mind puzzles using the MIP solver
+- [util.py](util.py): Some tools I used for timing and comparison
+- [number_mind_bayesian_probabilities.pdf](number_mind_bayesian_probabilities.pdf): Derivation of the probabilities I used with some algorithms.
 _________________________________________
 
 ### Additional information
