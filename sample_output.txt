@@ -48,7 +48,7 @@ Time elapsed: 1.77 seconds
 Solving puzzle with MIMIC algorithm and repeated greedy search...
 Training Mimic distribution for 50 generations with population size 10000 and cutoff 0.6
 Initial pop. 	 Lowest, median, highest costs: 12 27 42
-				 Total univariate entropy: 36.83 (compared to 31.40 for Bayesian distribution and 36.84 for uniform distribution)
+				 Total univariate entropy: 36.83 (compared to 31.40 for Bayesian dist. and 36.84 for uniform dist.)
 Generation 0 	 Lowest, median, highest costs:  9 26 42
 				 Total univariate entropy: 36.74
 Generation 10 	 Lowest, median, highest costs:  9 22 37
@@ -60,6 +60,6 @@ Generation 30 	 Lowest, median, highest costs:  7 20 37
 Generation 40 	 Lowest, median, highest costs:  9 20 36
 				 Total univariate entropy: 32.14
 Mimic training complete.
-Final univariate entropy: 31.85 (compared to 31.40 for Bayesian distribution and 36.84 for uniform distribution)
+Final univariate entropy: 31.85 (compared to 31.40 for Bayesian dist. and 36.84 for uniform dist.)
 4640261571849533 Mimic greedy search found solution after 15719 iterations, starting from state 0240217571077923.
 Time elapsed: 57.648 seconds
