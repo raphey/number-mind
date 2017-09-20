@@ -1,0 +1,65 @@
+Solving puzzle with simulated annealing...
+Iteration:      1 Cost: 21 Comparison to known sol: __4__6_______5__
+Iteration:      3 Cost: 19 Comparison to known sol: __4__6_______5__
+Iteration:     11 Cost: 14 Comparison to known sol: __4__6_______5__
+Iteration:     15 Cost: 13 Comparison to known sol: __4__6_______5_3
+Iteration:     31 Cost: 12 Comparison to known sol: __40_6__7____5__
+Iteration:     39 Cost: 11 Comparison to known sol: __4__6__7____5__
+Iteration:     67 Cost: 10 Comparison to known sol: __40_6_57____5__
+Iteration:    194 Cost:  8 Comparison to known sol: _640___57___95__
+Iteration:    205 Cost:  7 Comparison to known sol: _640___57____5__
+Iteration:    227 Cost:  6 Comparison to known sol: _640___57____5__
+Iteration:   1263 Cost:  5 Comparison to known sol: ____261_7____5_3
+Iteration:   1323 Cost:  4 Comparison to known sol: ___0261_7____5_3
+Iteration:   2423 Cost:  3 Comparison to known sol: ____2_157_8__5_3
+Iteration:   4228 Cost:  2 Comparison to known sol: ___0_______4_53_
+Iteration:  25315 Cost:  1 Comparison to known sol: __40__1__18__5_3
+4640261571849533 Simulated annealing found solution after 821753 iterations.
+Time elapsed: 3.768 seconds
+
+Solving puzzle with genetic algorithm...
+Civilization 0
+Generation    0	 Best five: _______5___4____	_______5_____5__	__4_____________	__4_2___________	_6______________
+Generation   10	 Best five: _6___6_5_____53_	__40_6_________3	______________3_	464_2__5_1______	_6___6_5______3_
+Generation   20	 Best five: _6___6_5_____53_	__4__6_5_____53_	__4__6_5_____5_3	__40__1__1___533	__4____5________
+Generation   30	 Best five: __4____5_1___533	__4____5_1___533	_6___6_5_____53_	__4__6_5_____53_	__4__6_5_____5_3
+Generation   40	 Best five: __40__1__18__533	__4__61__1___533	__4____5_1___5_3	__4____5_1___533	__4_2_15___4_5__
+Generation   50	 Best five: __40__1__18__533	__4__61__1___533	__4____5_1___5_3	__4___15_1___5__	__40_____1___5_3
+Generation   60	 Best five: __40______8__5_3	__40__1__18__533	__4______18___33	__40__1__18__533	__4__61__1___533
+Generation   70	 Best five: __40__1__18__5_3	__40______8__5_3	__40__1__18__5_3	__40__1__18__533	__40__1__18__5_3
+Generation   80	 Best five: __40__1__18__5_3	__40__1__18__5_3	__40__1__18__5_3	__40__1__18__5_3	__40__1__18__5_3
+Generation   90	 Best five: __40__1__18__5_3	__40__1__18__5_3	__40__1__18__5_3	__40__1__18__5_3	__40__1__18__5_3
+
+Civilization 1
+Generation    0	 Best five: __40____7_8495__	____2__5_____5__	____2________5__	__40_____1___5__	________________
+Generation   10	 Best five: ___0_61________3	4_4_2_____8__53_	_________1_4____	_640___5_____5__	__4____5_____53_
+Generation   20	 Best five: __4___1__1___5_3	4_4_____7____5__	__4______1_4_5_3	__4_26_5_____53_	__40261_71_____3
+Generation   30	 Best five: 464___157____5__	__40__1571___53_	__4___1__1___5_3	4640___57____5__	__40__15_____5__
+Generation   40	 Best five: 4_402_157____53_	464___157____5__	__40__1571___53_	464_____71___533	4_4_2_157____53_
+Generation   50	 Best five: 4_402_157____53_	_64___1______53_	4_40__15718__53_	464___157____5__	__40__1571___53_
+Generation   60	 Best five: 4_4_2_15718__53_	__4___1__1___5_3	464___1_7____533	4_402_15718__5_3	__4___1__1___5_3
+Generation   70	 Best five: 4_402_157____53_	4_4_2_15718__53_	4_4_2_15718__53_	4_4_2_15718__53_	4_402_157____53_
+4640261571849533 Genetic algorithm found solution after 80 generations, in civilization 1.
+Time elapsed: 4.978 seconds
+
+4640261571849533 Backtracking guess search found solution after exploring 25034930 of 5.8e+43 guess search nodes.
+Time elapsed: 1.77 seconds
+
+Solving puzzle with MIMIC algorithm and repeated greedy search...
+Training Mimic distribution for 50 generations with population size 10000 and cutoff 0.6
+Initial pop. 	 Lowest, median, highest costs: 12 27 42
+				 Total univariate entropy: 36.83 (compared to 31.40 for Bayesian distribution and 36.84 for uniform distribution)
+Generation 0 	 Lowest, median, highest costs:  9 26 42
+				 Total univariate entropy: 36.74
+Generation 10 	 Lowest, median, highest costs:  9 22 37
+				 Total univariate entropy: 34.62
+Generation 20 	 Lowest, median, highest costs:  8 21 35
+				 Total univariate entropy: 33.47
+Generation 30 	 Lowest, median, highest costs:  7 20 37
+				 Total univariate entropy: 32.56
+Generation 40 	 Lowest, median, highest costs:  9 20 36
+				 Total univariate entropy: 32.14
+Mimic training complete.
+Final univariate entropy: 31.85 (compared to 31.40 for Bayesian distribution and 36.84 for uniform distribution)
+4640261571849533 Mimic greedy search found solution after 15719 iterations, starting from state 0240217571077923.
+Time elapsed: 57.648 seconds
