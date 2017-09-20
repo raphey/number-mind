@@ -1,5 +1,5 @@
 __author__ = 'raphey'
-# Puzzle class
+# Class for Number Mind puzzles
 
 from random import randint, uniform
 from itertools import combinations, combinations_with_replacement
@@ -68,7 +68,7 @@ class NumberMindPuzzle(object):
 
     def initialize_to_fixed(self, initial_state):
         """
-        Initializes current_state to a specified string,.
+        Initializes current_state to a specified string.
         Also calls a function to set the current_cost and guess_score_offset attributes.
         """
         self.current_state = initial_state
