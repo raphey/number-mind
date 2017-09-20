@@ -83,7 +83,7 @@ My implementation of MIMIC took about 30 seconds to train, achieving median cost
 I thought it would be cool to try plugging the problem into a pre-made tool, and I found one by Gustavo Niemeyer written in pure python. It works for the n=5 small case, but it seems like it might take years to solve the full problem. This tool affords the luxury of completely general variable constraints (as opposed to only allowing linear equation constraints), but it comes at a steep cost.
 
 #### Mixed-integer programming
-Google’s OR tools includes a python-wrapped tool that does mixed-integer programming. The problem can be reframed as a set of 10*n binary variables, where v35=1 might, for instance, mean that the digit in place 3 is a 5. (I got this idea from the PE forum.) It was extremely satisfying to see this use “branch-and-cut” to get a conclusive, non-random answer in only a second, and this tool also allowed me to create new puzzles, since it could determine whether a given puzzle had a unique solution.
+Google’s OR tools include a python-wrapped tool that does mixed-integer programming. The problem can be reframed as a set of 10*n binary variables, where v35=1 might, for instance, mean that the digit in place 3 is a 5. (I got this idea from the PE forum.) It was extremely satisfying to see this use “branch-and-cut” to get a conclusive, non-random answer in only a second, and this tool also allowed me to create new puzzles, since it could determine whether a given puzzle had a unique solution.
 
 
 <sup>1</sup>Project Euler strongly discourages participants from posting solutions online and spoiling others’ fun, but I felt this post was in keeping with the spirit of learning/exploration. Plus the problem is nine years old.
