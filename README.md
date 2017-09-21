@@ -105,4 +105,5 @@ Google’s OR tools include a python-wrapped tool that does mixed-integer progra
 #### Late acceptance hill-climbing
 As described in [this 2012 paper](https://pdfs.semanticscholar.org/28cf/19a305a3b02ba2f34497bebace9f74340ade.pdf) by Burke and Bykov, this algorithm is essentially just hill-climbing a random iteration is admitted either if it’s an improvement relative to where we currently are, or if it’s an improvement to where we were L iterations earlier, where L is a tuned parameter. If it’s rejected, we stay in the same place for one iteration and try again. It has one fewer parameter to tune than SA, and a comparable amount of magic.
 
+
 <sup>1</sup>Project Euler strongly discourages participants from posting solutions online and spoiling others’ fun, but I felt this post was in keeping with the spirit of learning/exploration. Plus the problem is nine years old.
