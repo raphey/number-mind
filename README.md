@@ -103,7 +103,7 @@ I thought it would be cool to try plugging the problem into a pre-made tool, and
 Google’s OR tools include a python-wrapped tool that does mixed-integer programming. The problem can be reframed as a set of 10*n binary variables, where v35=1 might, for instance, mean that the digit in place 3 is a 5. (I got this idea from the PE forum.) It was extremely satisfying to see this use “branch-and-cut” to get a conclusive, non-random answer in only a second, and this tool also allowed me to create new puzzles, since it could determine whether a given puzzle had a unique solution.
 
 #### Late acceptance hill-climbing
-As described in [this 2012 paper](https://pdfs.semanticscholar.org/28cf/19a305a3b02ba2f34497bebace9f74340ade.pdf) by Burke and Bykov, this algorithm is essentially just hill-climbing a random iteration is admitted either if it’s an improvement relative to where we currently are, or if it’s an improvement to where we were L iterations earlier, where L is a tuned parameter. If it’s rejected, we stay in the same place for one iteration and try again. It has one fewer parameter to tune than SA, and a comparable amount of magic.
+As described in [this 2012 paper](https://pdfs.semanticscholar.org/28cf/19a305a3b02ba2f34497bebace9f74340ade.pdf) by Burke and Bykov, LAHC is a hill-climbing variation in which a random iteration is admitted either if it’s an improvement relative to where we currently are, or if it’s an improvement to where we were L iterations earlier, where L is a parameter. If it’s rejected, we stay in the same place for one iteration and try again. It has one fewer parameter to tune than SA, and a comparable amount of magic.
 
 _________________________________________
 
