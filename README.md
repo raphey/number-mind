@@ -15,7 +15,7 @@ I solved the problem using:
 - repeated greedy search using a bivariate probability distribution model to generate low-cost starting points (RGS w MIMIC)
 - a generalized constraint library for python (Constraint)
 - a fast C-based mixed-integer programming library that’s part of Google’s OR tools, which I also used to create a function to generate new puzzles (MIP)
-- Late acceptance hill climbing (LAHC)
+- late acceptance hill climbing (LAHC)
 - Bayesian probability distributions that substantially enhanced the performance of many of the above algorithms
 
 ### Results
