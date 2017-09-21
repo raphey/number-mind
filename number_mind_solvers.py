@@ -110,9 +110,12 @@ def single_greedy_search(puzzle: NumberMindPuzzle, use_bayes=False, initial_stat
 
     start_state = puzzle.current_state
 
+    if puzzle.cost == 0:
+        return start_state, start_state
+
     new_state, new_cost, new_gso = puzzle.best_successor_w_cost_gso(d=lex_dist)
 
-    while 0 < new_cost < puzzle.current_cost:
+    while new_cost < puzzle.current_cost:
         puzzle.current_state, puzzle.current_cost, puzzle.guess_score_offset = new_state, new_cost, new_gso
         new_state, new_cost, new_gso = puzzle.best_successor_w_cost_gso(d=lex_dist)
 
@@ -577,6 +580,52 @@ def heap_digit_search(puzzle: NumberMindPuzzle, use_bayes=False, fixed_start=Tru
     :return: None, prints solution.
     """
 
+    return
+
+
+def late_acceptance_hill_climbing(puzzle: NumberMindPuzzle, memory=20, max_starts=10000, max_tries_per_i=5000,
+                                  use_bayes=False):
+    """
+    Late acceptance hill-climbing algorithm, as described in a paper by Burke and Bykov.
+    :param puzzle: A number-mind puzzle
+    :param memory: List of previous state costs--current cost is always compared to oldest cost, memory[0]
+    :param max_starts: Num. restarts, meaning how many times the lahc subfunction will be called before giving up
+    :param max_tries_per_i: Num. iterations lahc will make before giving up, possibly to be restarted by main function
+    :param use_bayes: Use Bayesian probabilities to determine the initial state.
+    :return: None, prints solution
+    """
+    def lahc():
+        """
+        Helper function--one single time through the late acceptance hill-climbing algorithm, called repeatedly
+        until a solution is found or max_starts is exceeded.
+        """
+        puzzle.initialize_to_random(use_bayes)
+        start_state = puzzle.current_state
+        cost_list = [puzzle.current_cost] * memory
+
+        for _ in range(max_tries_per_i):
+            if puzzle.current_cost == 0:
+                return puzzle.current_state, start_state
+
+            # Possible next step
+            new_state, new_cost, new_gso = puzzle.random_successor_w_cost_gso(use_bayes)
+
+            if new_cost <= cost_list[0] or new_cost <= cost_list[-1]:
+                puzzle.current_state, puzzle.current_cost, puzzle.guess_score_offset = new_state, new_cost, new_gso
+                cost_list.append(new_cost)
+            else:
+                cost_list.append(puzzle.current_cost)
+
+            cost_list.pop(0)
+
+        return None, start_state
+
+    for i in range(max_starts):
+        sol, start = lahc()
+        if sol:
+            print("{} Late acceptance hill climbing found solution on iteration {}".format(sol, i))
+            return
+    print("Late acceptance hill climbing failed to find a solution after {} iterations".format(max_starts))
     return
 
 

@@ -3,7 +3,7 @@
 ### Overview
 This is a collection of algorithms I wrote to solve “Number Mind” puzzles, a variation of the board game [MasterMind](https://en.wikipedia.org/wiki/Mastermind_(board_game)) described in [Project Euler problem 185](https://projecteuler.net/problem=185). The basic idea is to deduce an unknown string of digits from clues in the form of a series of premade “guesses” along with the number of correct digits in the guesses. 
 
-I wrote these because this problem seemed to have a particularly diverse set of available approaches, and I thought it would be fun to play with some new algorithms and optimizations. Of course if you want to solve the problem yourself, you should do that before continuing,<sup>1</sup> and if you have another method or improvement to suggest, I’d love to hear about it. Thanks very much to Chris Gearheart for helping with these algorithms and telling me about MIMIC.
+I wrote these because this problem seemed to have a particularly diverse set of available approaches, and I thought it would be fun to play with some new algorithms and optimizations. Of course if you want to solve the problem yourself, you should do that before continuing,<sup>1</sup> and if you have another method or improvement to suggest, I’d love to hear about it. Thanks very much to Chris Gearheart for helping with these algorithms and telling me about MIMIC and LAHC.
 
 ### Algorithms and shorthand names
 I solved the problem using:
@@ -15,6 +15,7 @@ I solved the problem using:
 - repeated greedy search using a bivariate probability distribution model to generate low-cost starting points (RGS w MIMIC)
 - a generalized constraint library for python (Constraint)
 - a fast C-based mixed-integer programming library that’s part of Google’s OR tools, which I also used to create a function to generate new puzzles (MIP)
+- Late acceptance hill climbing (LAHC)
 - Bayesian probability distributions that substantially enhanced the performance of many of the above algorithms
 
 ### Results
@@ -27,8 +28,10 @@ I solved the problem using:
 | MIP          | 1.3           | -                 |
 | SA w Bayes   | 1.9           | 5.1e5             |
 | SA           | 3.7           | 1.4e6             |
+| LAHC w Bayes | 5.8           | 1.5e6             |
 | Heap w Bayes | 6.1           | 6.3e5             |
 | Heap         | 10            | 9.5e5             |
+| LAHC         | 39            | 8.2e6             |
 | GA w Bayes   | 41            | 1.6e6             |
 | GA           | 51            | 2.1e6             |
 | BGS          | 54            | -                 |
@@ -99,5 +102,7 @@ I thought it would be cool to try plugging the problem into a pre-made tool, and
 #### Mixed-integer programming
 Google’s OR tools include a python-wrapped tool that does mixed-integer programming. The problem can be reframed as a set of 10*n binary variables, where v35=1 might, for instance, mean that the digit in place 3 is a 5. (I got this idea from the PE forum.) It was extremely satisfying to see this use “branch-and-cut” to get a conclusive, non-random answer in only a second, and this tool also allowed me to create new puzzles, since it could determine whether a given puzzle had a unique solution.
 
+#### Late acceptance hill-climbing
+As described in [this 2012 paper](https://pdfs.semanticscholar.org/28cf/19a305a3b02ba2f34497bebace9f74340ade.pdf) by Burke and Bykov, this algorithm is essentially just hill-climbing a random iteration is admitted either if it’s an improvement relative to where we currently are, or if it’s an improvement to where we were L iterations earlier, where L is a tuned parameter. If it’s rejected, we stay in the same place for one iteration and try again. It has one fewer parameter to tune than SA, and a comparable amount of magic.
 
 <sup>1</sup>Project Euler strongly discourages participants from posting solutions online and spoiling others’ fun, but I felt this post was in keeping with the spirit of learning/exploration. Plus the problem is nine years old.
