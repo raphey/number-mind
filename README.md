@@ -71,7 +71,7 @@ _________________________________________
 The algorithms that used a cost function all used the same one. For a given state, the cost function was the sum of how “wrong” the guess scores were, when the guesses were compared to state in question, with the wrongness being the absolute value of the difference in how many were correct vs how many were supposed to be correct. The optimal way to calculate cost varied by algorithm, since algorithms with states that were changing one digit at a time allowed for some shortcuts.
 
 #### Bayesian probabilities
-I calculated the Bayesian probability of the solution having a particular digit in a particular place, given the distribution of guess scores with that digit either occurring or not occurring in that place. [Here’s my derivation](number_mind_bayesian_brobabilities.pdf). These probabilities were able to make many of the algorithms substantially faster.
+I calculated the Bayesian probability of the solution having a particular digit in a particular place, given the distribution of guess scores with that digit either occurring or not occurring in that place. [Here’s my derivation](number_mind_bayesian_probabilities.pdf). These probabilities were able to make many of the algorithms substantially faster.
 
 ### Repeated greedy search
 This was able to solve the original puzzle in a matter of minutes, and it may have won in terms of coding time + solve time. I also implemented the ability to change multiple digits, but the additional score lookups canceled the benefits of the extra reach. 
